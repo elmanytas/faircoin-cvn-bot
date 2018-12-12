@@ -42,7 +42,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             missing_signatures = self._get_missing_signatures(
                 latest_block_hash)
             missing_operators = ','.join([
-                _CVN_OPERATORS.get(signature, signature]
+                _CVN_OPERATORS.get(signature, signature)
                 for signature in missing_signatures])
             message = 'Block hash {} missing signatures from {}'.format(
                 latest_block_hash, missing_operators)
