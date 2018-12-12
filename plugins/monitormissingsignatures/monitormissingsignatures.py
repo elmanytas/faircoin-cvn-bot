@@ -8,6 +8,23 @@ from bitcoinrpc import authproxy
 _GROUP_FAIRCOIN_CVN_OPERATORS= '-114923528'
 _POLL_FREQUENCY = 60  # 1 minute.
 _FAIRCOIN_RPC_URL = 'http://{}:{}@127.0.0.1:8332'
+_CVN_OPERATORS = {
+    '0x0b4e533d': '@piki46',
+    '0x0da3c0e0': '@elopio',
+    '0x59e0a12e': '@santiddt',
+    '0x849e5166': '@JRock1203',
+    '0x86d6cdb7': '@altjensen',
+    '0xae5fae5c': '@mmoya',
+    '0xaffeaffe': '@ariemer',
+    '0xbabd15bd': '@NattNat',
+    '0xbabd15bd': '@luiski',
+    '0xc01dbee1': '@yosug',
+    '0xc1cad1da': '@Michalis_K',
+    '0xca0dcaa2': '@northcountry',
+    '0xd4b69c97': '@s8t8f',
+    '0xdabbad00': '@jbarrio',
+    '0xe2f3ada2': '@zumbrunn'
+}
 
 
 class MonitorMissingSignatures(errbot.BotPlugin):
@@ -24,8 +41,11 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             self['latest_block_hash'] = latest_block_hash
             missing_signatures = self._get_missing_signatures(
                 latest_block_hash)
-            message = 'Block hash {} missing signatures {}'.format(
-                latest_block_hash, missing_signatures)
+            missing_operators = ','.join([
+                _CVN_OPERATORS.get(signature, signature]
+                for signature in missing_signatures])
+            message = 'Block hash {} missing signatures from {}'.format(
+                latest_block_hash, missing_operators)
             return self.send(group, message)
 
     def _get_latest_block_hash(self):
