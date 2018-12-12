@@ -15,9 +15,9 @@ class MonitorMissingSignatures(errbot.BotPlugin):
     def activate(self):
         super().activate()
         self['latest_block'] = 0
-        self.start_poller(_POLL_FREQUENCY, self._check_latest_block)
+        self.start_poller(_POLL_FREQUENCY, self._report_missing_signatures)
 
-    def _check_latest_block(self):
+    def _report_missing_signatures(self):
         latest_block_hash = self._get_latest_block_hash()
         if latest_block_hash != self['latest_block_hash']:
             group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
@@ -28,7 +28,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
                 latest_block_hash, missing_signatures)
             return self.send(group, message)
 
-    def _get_latest_block(self):
+    def _get_latest_block_hash(self):
         rpc_connection = self._get_rpc_connection()
         return rpc_connection.getbestblockhash()
 
