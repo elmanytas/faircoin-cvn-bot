@@ -1,3 +1,5 @@
+import os
+
 import errbot
 
 from bitcoinrpc import authproxy
