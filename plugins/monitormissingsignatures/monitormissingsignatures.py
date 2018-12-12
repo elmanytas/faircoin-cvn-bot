@@ -14,7 +14,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
 
     def activate(self):
         super().activate()
-        self['latest_block'] = 0
+        self['latest_block_hash'] = 0
         self.start_poller(_POLL_FREQUENCY, self._report_missing_signatures)
 
     def _report_missing_signatures(self):
