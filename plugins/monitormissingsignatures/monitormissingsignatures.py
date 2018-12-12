@@ -6,7 +6,7 @@ class MonitorMissingSignatures(BotPlugin):
 
     def activate(self):
         super().activate()
-        self.rpc_connection = AuthServiceProxy(
+        self.rpc_connection = authproxy.AuthServiceProxy(
             'http://{}:{}@127.0.0.1:8332'.format(
                 os.environ.get('FAIRCOIN_RPC_USER'),
                 os.environ.get('FAIRCOIN_RPC_PASSWORD'))
