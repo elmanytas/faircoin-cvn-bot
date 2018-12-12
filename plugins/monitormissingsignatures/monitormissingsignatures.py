@@ -1,8 +1,9 @@
+import errbot
+
 from bitcoinrpc import authproxy
-from errbot import BotPlugin
 
 
-class MonitorMissingSignatures(BotPlugin):
+class MonitorMissingSignatures(errbot.BotPlugin):
 
     def activate(self):
         super().activate()
