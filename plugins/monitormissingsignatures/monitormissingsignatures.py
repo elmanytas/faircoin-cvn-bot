@@ -41,12 +41,13 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             self['latest_block_hash'] = latest_block_hash
             missing_signatures = self._get_missing_signatures(
                 latest_block_hash)
-            missing_operators = ','.join([
-                _CVN_OPERATORS.get(signature, signature)
-                for signature in missing_signatures])
-            message = 'Block hash {} missing signatures from {}'.format(
-                latest_block_hash, missing_operators)
-            return self.send(group, message)
+            if missing_signatures:
+                missing_operators = ','.join([
+                    _CVN_OPERATORS.get(signature, signature)
+                    for signature in missing_signatures])
+                message = 'Block hash {} missing signatures from {}'.format(
+                    latest_block_hash, missing_operators)
+                return self.send(group, message)
 
     def _get_latest_block_hash(self):
         rpc_connection = self._get_rpc_connection()
