@@ -1,0 +1,9 @@
+[Core]
+Name = MonitorMissingSignatures
+Module = monitormissingsignatures
+
+[Documentation]
+Description = Report missing signatures on the latest blocks
+
+[Python]
+Version = 2+

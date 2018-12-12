@@ -1,0 +1,27 @@
+name: faircoin-cvn-bot
+version: '0.1-dev'
+summary: A monitor bot for the Faircoin Certified Validation Nodes
+description: A monitor bot for the Faircoin Certified Validation Nodes
+grade: stable
+confinement: strict
+
+apps:
+  faircoin-cvn-bot:
+    command: env LC_ALL=C.UTF-8 errbot -c $SNAP/config.py
+    plugs: [home, network, network-bind]
+
+parts:
+  errbot:
+    plugin: python
+    python-packages:
+      - errbot
+      - python-telegram-bot
+      - python-bitcoinrpc
+  faircoin-cvn-bot:
+    source: .
+    plugin: dump
+    stage:
+      - config.py
+      - plugins
+      - backends
+    after: [errbot]
