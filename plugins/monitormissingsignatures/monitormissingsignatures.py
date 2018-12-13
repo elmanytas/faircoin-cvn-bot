@@ -7,23 +7,28 @@ from bitcoinrpc import authproxy
 
 _GROUP_FAIRCOIN_CVN_OPERATORS= '-114923528'
 _POLL_FREQUENCY = 180  # 3 minutes.
-_FAIRCOIN_RPC_URL = 'http://{}:{}@127.0.0.1:8332'
+_FAIRCOIN_RPC_URL = 'http://{}:{}@127.0.0.1:40405'
 _CVN_OPERATORS = {
     '0x0b4e533d': '@piki46',
     '0x0da3c0e0': '@elopio',
     '0x59e0a12e': '@santiddt',
-    '0x849e5166': '@JRock1203',
     '0x86d6cdb7': '@altjensen',
     '0xae5fae5c': '@mmoya',
     '0xaffeaffe': '@ariemer',
-    '0xbabd15bd': '@NattNat',
     '0xbabd15bd': '@luiski',
     '0xc01dbee1': '@yosug',
     '0xc1cad1da': '@Michalis_K',
     '0xca0dcaa2': '@northcountry',
     '0xd4b69c97': '@s8t8f',
     '0xdabbad00': '@jbarrio',
-    '0xe2f3ada2': '@zumbrunn'
+    '0xe2f3ada2': '@zumbrunn',
+    '0xe215f05c': '@prgiorgio',
+    '0xf7a69180': '@IvanVdC',
+    '0x2d3d4a04': '@chrkon00',
+    '0xd4b69c97': '@s8t8f',
+    '0x9c1a6161': '@elmanytas',
+    '0xa0a748eb': '@rasobar'
+    '0xcafecafe': '@thokon00'
 }
 
 
