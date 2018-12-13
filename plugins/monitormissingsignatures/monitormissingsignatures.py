@@ -89,3 +89,5 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             # 5 missing signatures in a row.
             if self['missing_count'][signature] == 5:
                 signatures_to_report.append(signature)
+
+        return signatures_to_report
