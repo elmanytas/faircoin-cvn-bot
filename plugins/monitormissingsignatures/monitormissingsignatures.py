@@ -48,7 +48,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             if signatures_to_report:
                 for signature in signatures_to_report:
                     message = '{}: your node is down.'.format(
-                        CVN_OPERATORS.get(signature, signature))
+                        _CVN_OPERATORS.get(signature, signature))
                     return self.send(group, message)
 
     def _get_latest_block_hash(self):
