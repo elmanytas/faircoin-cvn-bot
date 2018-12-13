@@ -4,7 +4,7 @@
 
 [![Snap Status](https://build.snapcraft.io/badge/elopio/faircoin-cvn-bot.svg)](https://build.snapcraft.io/user/elopio/zos-bot)
 
-A monitor bot for the Faircoin Certified Validation Nodes.
+A monitor bot for the Faircoin Cooperatively Validated Nodes.
 
 Also known as Thomas, the bot.
 
