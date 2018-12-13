@@ -50,8 +50,6 @@ class MonitorMissingSignatures(errbot.BotPlugin):
                     message = '{}: your node is down.'.format(
                         CVN_OPERATORS.get(signature, signature))
                     return self.send(group, message)
-            else:
-                self['missing_count'] = {}
 
     def _get_latest_block_hash(self):
         rpc_connection = self._get_rpc_connection()
@@ -77,11 +75,13 @@ class MonitorMissingSignatures(errbot.BotPlugin):
         # Reset the count for signatures that are no longer missing.
         for signature in self['missing_count']:
             if signature not in missing_signatures:
-                del self['missing_count'][signature]
+                with self.mutable('missing_count') as missing_count:
+                    missing_count[signature] = 0
 
         for signature in missing_signatures:
             count = self['missing_count'].get(signature, 0)
-            self['missing_count'][signature] = count + 1
+            with self.mutable('missing_count') as missing_count:
+                missing_count[signature] = count + 1
 
     def _get_signatures_to_report(self):
         signatures_to_report = []
