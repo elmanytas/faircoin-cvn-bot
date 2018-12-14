@@ -44,17 +44,10 @@ class MonitorMissingSignatures(errbot.BotPlugin):
         latest_block_hash = self._get_latest_block_hash()
         if latest_block_hash != self['latest_block_hash']:
             self['latest_block_hash'] = latest_block_hash
-            group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
 
             missing_signatures = self._get_missing_signatures(
                 latest_block_hash)
             self._update_missing_count(missing_signatures)
-            signatures_to_report = self._get_signatures_to_report()
-            if signatures_to_report:
-                for signature in signatures_to_report:
-                    message = '{}: your node is down.'.format(
-                        _CVN_OPERATORS.get(signature, signature))
-                    self.send(group, message)
 
     def _get_latest_block_hash(self):
         rpc_connection = self._get_rpc_connection()
@@ -88,11 +81,9 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             with self.mutable('missing_count') as missing_count:
                 missing_count[signature] = count + 1
 
-    def _get_signatures_to_report(self):
-        signatures_to_report = []
-        for signature in self['missing_count']:
             # 5 missing signatures in a row.
-            if self['missing_count'][signature] == 5:
-                signatures_to_report.append(signature)
-
-        return signatures_to_report
+            if missing_count[signature] == 5:
+                group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
+                message = '{}: your node is down.'.format(
+                    _CVN_OPERATORS.get(signature, signature))
+                self.send(group, message)
