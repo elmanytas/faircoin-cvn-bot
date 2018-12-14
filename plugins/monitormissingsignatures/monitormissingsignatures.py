@@ -82,7 +82,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
                 with self.mutable('missing_count') as missing_count:
                     missing_count[signature] = 0
                 if previous_missing_count >= _MISSING_SIGNATURES_TO_REPORT:
-                    message = '{}: your node is down.'.format(
+                    message = '{}: your node is up.'.format(
                         _CVN_OPERATORS.get(signature, signature))
                     self._report(message)
 
