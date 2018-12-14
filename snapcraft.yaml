@@ -1,7 +1,7 @@
 name: faircoin-cvn-bot
 version: '0.1-dev'
-summary: A monitor bot for the Faircoin Certified Validation Nodes
-description: A monitor bot for the Faircoin Certified Validation Nodes
+summary: A monitor bot for the Faircoin Cooperatively Validated Nodes
+description: A monitor bot for the Faircoin Cooperatively Validated Nodes
 grade: stable
 confinement: strict
 
