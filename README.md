@@ -28,8 +28,11 @@ to connect through RPC to the FairCoin node, and
 
 ### Actions
 
-Every minute, the bot checks the latest block to and takes note of the CVNs
-that didn't sign it.
+Every three minutes, the bot checks the latest block and takes note of the
+CVNs that didn't sign it. After 5 missing blocks in a row, it sends a
+notification to the CVN operators group in Telegram. If a node has been down
+for 12 hours, it sends a reminder. When a node is back up, it also notifies the
+group.
 
 ### Available commands
 
