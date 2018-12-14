@@ -2,7 +2,7 @@
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat)](https://github.com/RichardLitt/standard-readme)
 
-[![Snap Status](https://build.snapcraft.io/badge/elopio/faircoin-cvn-bot.svg)](https://build.snapcraft.io/user/elopio/zos-bot)
+[![Snap Status](https://build.snapcraft.io/badge/JaquerEspeis/faircoin-cvn-bot.svg)](https://build.snapcraft.io/user/JaquerEspeis/faircoin-cvn-bot)
 
 A monitor bot for the Faircoin Cooperatively Validated Nodes.
 
