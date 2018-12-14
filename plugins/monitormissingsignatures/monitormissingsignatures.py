@@ -7,6 +7,8 @@ from bitcoinrpc import authproxy
 
 _GROUP_FAIRCOIN_CVN_OPERATORS= '-114923528'
 _POLL_FREQUENCY = 180  # 3 minutes.
+_MISSING_SIGNATURES_TO_REPORT = 5
+_MISSING_SIGNATURES_TO_REMIND = 240  # 240 blocks is approximately 12 hours.
 _FAIRCOIN_RPC_URL = 'http://{}:{}@127.0.0.1:40405'
 _CVN_OPERATORS = {
     '0x0b4e533d': '@piki46',
@@ -74,23 +76,34 @@ class MonitorMissingSignatures(errbot.BotPlugin):
         # Reset the count for signatures that are no longer missing.
         for signature in self['missing_count']:
             if signature not in missing_signatures:
+                previous_missing_count = self['missing_count'][signature]
                 with self.mutable('missing_count') as missing_count:
                     missing_count[signature] = 0
+                if previous_missing_count >= _MISSING_SIGNATURES_TO_REPORT:
+                    message = '{}: your node is down.'.format(
+                        _CVN_OPERATORS.get(signature, signature))
+                    self._report(message)
 
+        # Increase the missing count.
         for signature in missing_signatures:
             count = self['missing_count'].get(signature, 0)
+            new_count = count + 1
             with self.mutable('missing_count') as missing_count:
-                missing_count[signature] = count + 1
+                missing_count[signature] = new_count
 
             self._debug('New missing count: {} - {}.'.format(
-                signature, self['missing_count'][signature]))
+                signature, new_count))
 
-            # 5 missing signatures in a row.
-            if missing_count[signature] == 5:
-                group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
+            # 5 missing signatures in a row, or 12 hours down.
+            if (new_count == _MISSING_SIGNATURES_TO_REPORT or
+                    new_count % _MISSING_SIGNATURES_TO_REMIND == 0)
                 message = '{}: your node is down.'.format(
                     _CVN_OPERATORS.get(signature, signature))
-                self.send(group, message)
+                self._report(message)
+
+    def _report(self, message):
+        group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
+        return self.send(group, message)
 
     def _debug(self, message):
         elopio = self.build_identifier('43624396')
