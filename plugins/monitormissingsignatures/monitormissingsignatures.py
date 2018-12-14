@@ -58,8 +58,9 @@ class MonitorMissingSignatures(errbot.BotPlugin):
         missing_signatures = rpc_connection.getblock(
             block_hash)['missingCreatorIds']
         if missing_signatures:
-            self.log.info('Block {} is missing signatures from {}'.format(
+            self._debug('Block {} is missing signatures from {}'.format(
                 block_hash, missing_signatures))
+
         return missing_signatures
 
     def _get_rpc_connection(self):
@@ -81,9 +82,16 @@ class MonitorMissingSignatures(errbot.BotPlugin):
             with self.mutable('missing_count') as missing_count:
                 missing_count[signature] = count + 1
 
+            self._debug('New missing count: {} - {}.'.format(
+                signature, self['missing_count'][signature]))
+
             # 5 missing signatures in a row.
             if missing_count[signature] == 5:
                 group = self.build_identifier(_GROUP_FAIRCOIN_CVN_OPERATORS)
                 message = '{}: your node is down.'.format(
                     _CVN_OPERATORS.get(signature, signature))
                 self.send(group, message)
+
+    def _debug(self, message):
+        elopio = self.build_identifier('43624396')
+        return self.send(elopio, message)
