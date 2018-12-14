@@ -38,8 +38,10 @@ class MonitorMissingSignatures(errbot.BotPlugin):
 
     def activate(self):
         super().activate()
-        self['latest_block_hash'] = 0
-        self['missing_count'] = {}
+        if 'latest_block_hash' not in self:
+            self['latest_block_hash'] = 0
+        if 'missing_count' not in self:
+            self['missing_count'] = {}
         self.start_poller(_POLL_FREQUENCY, self._report_missing_signatures)
 
     def _report_missing_signatures(self):
