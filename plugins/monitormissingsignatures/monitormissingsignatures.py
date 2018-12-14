@@ -29,7 +29,7 @@ _CVN_OPERATORS = {
     '0x2d3d4a04': '@chrkon00',
     '0xd4b69c97': '@s8t8f',
     '0x9c1a6161': '@elmanytas',
-    '0xa0a748eb': '@rasobar'
+    '0xa0a748eb': '@rasobar',
     '0xcafecafe': '@thokon00'
 }
 
