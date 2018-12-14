@@ -98,7 +98,7 @@ class MonitorMissingSignatures(errbot.BotPlugin):
 
             # 5 missing signatures in a row, or 12 hours down.
             if (new_count == _MISSING_SIGNATURES_TO_REPORT or
-                    new_count % _MISSING_SIGNATURES_TO_REMIND == 0)
+                    new_count % _MISSING_SIGNATURES_TO_REMIND == 0):
                 message = '{}: your node is down.'.format(
                     _CVN_OPERATORS.get(signature, signature))
                 self._report(message)
